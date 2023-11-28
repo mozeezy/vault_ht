@@ -1,0 +1,27 @@
+.form__container {
+  margin-top: 8rem;
+  background-color: white;
+  border-radius: 15px;
+  width: 40%;
+  padding: 2rem;
+}
+
+.form__component {
+  display: flex;
+  flex-wrap: wrap;
+}
+.name__container {
+  display: flex;
+  width: 100%;
+  text-align: left;
+  gap: 2rem;
+}
+
+.name__field {
+  width: 50%;
+}
+
+.submit__btn {
+  margin-top: 1.5rem;
+  width: 100%;
+}
