@@ -1,9 +1,8 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import OBForm from "./components/OBForm/OBForm";
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
       <div className="container">
@@ -12,6 +11,6 @@ function App() {
       <OBForm />
     </div>
   );
-}
+};
 
 export default App;

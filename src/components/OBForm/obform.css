@@ -9,11 +9,12 @@
 .form__component {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
+  text-align: left;
 }
 .name__container {
   display: flex;
   width: 100%;
-  text-align: left;
   gap: 2rem;
 }
 
@@ -24,4 +25,9 @@
 .submit__btn {
   margin-top: 1.5rem;
   width: 100%;
+}
+
+.error__message {
+  color: red;
+  font-size: 12px;
 }
