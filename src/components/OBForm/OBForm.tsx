@@ -31,6 +31,7 @@ const OBForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<formInput>({
     resolver: zodResolver(schema),
@@ -38,6 +39,7 @@ const OBForm = () => {
 
   const submitData: SubmitHandler<formInput> = (data: formInput) => {
     console.log(data);
+    reset();
   };
 
   return (
