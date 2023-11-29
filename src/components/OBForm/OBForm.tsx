@@ -25,7 +25,7 @@ const OBForm: React.FC = () => {
     firstName: z.string().max(50).min(2, { message: "First name is required" }),
     lastName: z.string().max(50).min(2, { message: "Last name is required" }),
     phoneNumber: z.string().refine((value) => isCanadianNumber(value), {
-      message: "Invalid phone number",
+      message: "Invalid Phone Number",
     }),
     corpNumber: z.string().refine((value) => corpNumberArray.includes(value), {
       message: "Invalid Corporation Number",
@@ -42,14 +42,12 @@ const OBForm: React.FC = () => {
   });
 
   const submitData: SubmitHandler<formInput> = async (data) => {
-    console.log(data);
     try {
       setLoading(true);
       const response = await axios.get(
         `https://vault-test-task-api.onrender.com/corporationNumber/${data.corpNumber}`
       );
       if (response.data.valid) {
-        console.log("Corp number is valid");
         const postResponse = await axios.post(
           "https://vault-test-task-api.onrender.com/profile-details",
           {
@@ -64,11 +62,11 @@ const OBForm: React.FC = () => {
           setLoading(false);
           reset();
         } else {
-          toast.error("Invalid phone number");
+          toast.error("Error submitting form");
         }
       }
     } catch (error) {
-      toast.error("Session timeout");
+      toast.error("Invalid Corporation Number");
     }
   };
   return (
