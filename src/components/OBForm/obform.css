@@ -31,3 +31,18 @@
   color: red;
   font-size: 12px;
 }
+
+.success__message {
+  color: green;
+  font-size: 16px;
+}
+
+@media screen and (max-width: 800px) {
+  .name__container {
+    flex-direction: column;
+    gap: 0;
+  }
+  .name__field {
+    width: 100%;
+  }
+}

@@ -6,6 +6,7 @@
 }
 
 .App {
+  padding-top: 2rem;
   text-align: center;
   font-family: "DM Sans";
   background-color: lightgray;

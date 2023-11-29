@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z, ZodType } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import "./obform.css";
+import { corpNumberArray } from "../../corpNumberArray";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { isCanadianNumber } from "../../isCanadianNumber";
+import { Oval } from "react-loader-spinner";
 
 type formInput = {
   firstName: string;
@@ -13,19 +18,18 @@ type formInput = {
   corpNumber: string;
 };
 
-const OBForm = () => {
-  const canadianPhoneNumberRegEx =
-    /^(\+?1?[ -]?(?:\([2-9]\d{2}\)[ -]?|[2-9]\d{2}[ -]?)\d{3}[ -]?\d{4})$/;
+const OBForm: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(false);
 
   const schema: ZodType<formInput> = z.object({
     firstName: z.string().max(50).min(2, { message: "First name is required" }),
     lastName: z.string().max(50).min(2, { message: "Last name is required" }),
-    phoneNumber: z
-      .string()
-      .refine((input) => canadianPhoneNumberRegEx.test(input), {
-        message: "Invalid phone number",
-      }),
-    corpNumber: z.string().length(9, { message: "Invalid corporation number" }),
+    phoneNumber: z.string().refine((value) => isCanadianNumber(value), {
+      message: "Invalid phone number",
+    }),
+    corpNumber: z.string().refine((value) => corpNumberArray.includes(value), {
+      message: "Invalid Corporation Number",
+    }),
   });
 
   const {
@@ -37,11 +41,36 @@ const OBForm = () => {
     resolver: zodResolver(schema),
   });
 
-  const submitData: SubmitHandler<formInput> = (data: formInput) => {
+  const submitData: SubmitHandler<formInput> = async (data) => {
     console.log(data);
-    reset();
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `https://vault-test-task-api.onrender.com/corporationNumber/${data.corpNumber}`
+      );
+      if (response.data.valid) {
+        console.log("Corp number is valid");
+        const postResponse = await axios.post(
+          "https://vault-test-task-api.onrender.com/profile-details",
+          {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            corporationNumber: data.corpNumber,
+            phone: `+1${data.phoneNumber}`,
+          }
+        );
+        if (postResponse.status === 200) {
+          toast.success("Form submitted successfully");
+          setLoading(false);
+          reset();
+        } else {
+          toast.error("Invalid phone number");
+        }
+      }
+    } catch (error) {
+      toast.error("Session timeout");
+    }
   };
-
   return (
     <div className="form__container">
       <h4>Onboarding Form</h4>
@@ -81,9 +110,23 @@ const OBForm = () => {
         {errors.corpNumber && (
           <span className="error__message">{errors.corpNumber.message}</span>
         )}
-        <Button variant="dark" type="submit" className="submit__btn">
-          Submit ➔
-        </Button>
+        {loading ? (
+          <Oval
+            height="30"
+            width="30"
+            color="black"
+            ariaLabel="oval-loading"
+            secondaryColor="white"
+            wrapperStyle={{
+              marginTop: "0.5rem",
+              alignSelf: "center",
+            }}
+          />
+        ) : (
+          <Button variant="dark" type="submit" className="submit__btn">
+            Submit ➔
+          </Button>
+        )}
       </Form>
     </div>
   );
