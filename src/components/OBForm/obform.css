@@ -1,5 +1,5 @@
 .form__container {
-  margin-top: 8rem;
+  margin: 8rem;
   background-color: white;
   border-radius: 15px;
   width: 40%;
@@ -39,9 +39,11 @@
 }
 
 @media screen and (max-width: 800px) {
+  .form__container {
+    width: 60%;
+  }
   .name__container {
     flex-direction: column;
-    gap: 0;
   }
   .name__field {
     width: 100%;
