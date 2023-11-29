@@ -8,7 +8,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <div className="container">
-        <h4>Step 1 of 5</h4>
+        <h5>Step 1 of 5</h5>
       </div>
       <ToastContainer />
       <OBForm />

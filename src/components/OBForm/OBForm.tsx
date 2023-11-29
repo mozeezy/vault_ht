@@ -71,7 +71,7 @@ const OBForm: React.FC = () => {
   };
   return (
     <div className="form__container">
-      <h4>Onboarding Form</h4>
+      <h5>Onboarding Form</h5>
       <br />
       <Form className="form__component" onSubmit={handleSubmit(submitData)}>
         <div className="name__container">
