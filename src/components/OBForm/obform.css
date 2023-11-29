@@ -11,6 +11,7 @@
   flex-wrap: wrap;
   flex-direction: column;
   text-align: left;
+  gap: 0.5rem;
 }
 .name__container {
   display: flex;
