@@ -40,7 +40,14 @@ const canadianAreaCodes: string[] = [
 export function isCanadianNumber(phoneNumber: string) {
   const canadianPhoneRegex =
     /^(\+?1?[ -]?(?:\([2-9]\d{2}\)[ -]?|[2-9]\d{2}[ -]?)\d{3}[ -]?\d{4})$/;
-  const areaCode = phoneNumber.substring(0, 3);
+
+  let areaCode: string = "";
+  if (phoneNumber.includes("+1")) {
+    areaCode = phoneNumber.substring(2, 5);
+  } else {
+    areaCode = phoneNumber.substring(0, 3);
+  }
+
   if (canadianAreaCodes.includes(areaCode))
     return canadianPhoneRegex.test(phoneNumber);
   else {
