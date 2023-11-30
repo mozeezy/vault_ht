@@ -20,7 +20,7 @@ interface FormInput {
 const OBForm: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { register, handleSubmit, reset, control, trigger, setValue } =
+  const { register, handleSubmit, control, trigger, setValue } =
     useForm<FormInput>({
       resolver: zodResolver(schema),
       shouldUnregister: false,
@@ -79,7 +79,7 @@ const OBForm: React.FC = () => {
               render={({ field, fieldState }) => (
                 <>
                   <Form.Control
-                    {...register("firstName")}
+                    // {...register("firstName")}
                     {...field}
                     onBlur={() => validateOnBlur("firstName")}
                   />
@@ -102,7 +102,7 @@ const OBForm: React.FC = () => {
               render={({ field, fieldState }) => (
                 <>
                   <Form.Control
-                    {...register("lastName")}
+                    // {...register("lastName")}
                     {...field}
                     onBlur={() => validateOnBlur("lastName")}
                   />
@@ -127,7 +127,7 @@ const OBForm: React.FC = () => {
             render={({ field, fieldState }) => (
               <>
                 <Form.Control
-                  {...register("phoneNumber")}
+                  // {...register("phoneNumber")}
                   {...field}
                   onBlur={() => validateOnBlur("phoneNumber")}
                 />
@@ -151,7 +151,7 @@ const OBForm: React.FC = () => {
             render={({ field, fieldState }) => (
               <>
                 <Form.Control
-                  {...register("corpNumber")}
+                  // {...register("corpNumber")}
                   {...field}
                   onBlur={() => validateOnBlur("corpNumber")}
                 />
