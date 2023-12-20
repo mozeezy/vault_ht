@@ -6,18 +6,18 @@ export const schema = z.object({
   firstName: z
     .string()
     .max(50)
-    .min(2, { message: "First name must be at least 2 characters" }),
+    .min(2, { message: "First name must be at least 2 characters long." }),
   lastName: z
     .string()
     .max(50)
-    .min(2, { message: "Last name must be at least 2 characters" }),
+    .min(2, { message: "Last name must be at least 2 characters long." }),
   phoneNumber: z.string().refine((value) => isCanadianNumber(value), {
-    message: "Invalid Phone Number",
+    message: "Invalid Phone Number.",
   }),
   corpNumber: z
     .string()
     .length(9, {
-      message: "Invalid corporation number",
+      message: "Invalid corporation number.",
     })
     .refine(
       async (value) => {
